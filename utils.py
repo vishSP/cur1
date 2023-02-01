@@ -1,12 +1,17 @@
 import requests as requests
 import datetime
 
+"""открывает список с джсона"""
+
 
 def open_list():
     url = "https://www.jsonkeeper.com/b/6IGZ"
 
     result = requests.get(url).json()
     return result
+
+
+"""фильтрует по executed"""
 
 
 def filtered_list():
@@ -20,10 +25,16 @@ def filtered_list():
     return filtered_list
 
 
+"""фильтрует по дате"""
+
+
 def filtered_by_data():
     sor = sorted(filtered_list(), key=lambda i: i['date'], reverse=True)
 
     return sor[:5]
+
+
+""" превращает дату в нормальный вид """
 
 
 def data_perfect(data):
@@ -38,6 +49,9 @@ def data_perfect(data):
     return data_perfect_list[data]
 
 
+"""выводит описание перевода"""
+
+
 def description_(des):
     desc_list = []
     for i in filtered_by_data():
@@ -45,6 +59,9 @@ def description_(des):
         desc_list.append(desc_operation)
 
     return desc_list[des]
+
+
+"""Выводит количество денег"""
 
 
 def amount_(amount):
@@ -55,6 +72,9 @@ def amount_(amount):
     return amount_list[amount]
 
 
+"""выводит валюту """
+
+
 def name_(name):
     name_list = []
     for i in filtered_by_data():
@@ -63,12 +83,18 @@ def name_(name):
     return name_list[name]
 
 
+"""выводит код валюты"""
+
+
 def code_(code):
     code_list = []
     for i in filtered_by_data():
         desc_operation = i['operationAmount']['currency']['code']
         code_list.append(desc_operation)
     return code_list[code]
+
+
+"""выводит кому перевод"""
 
 
 def to_(to):
@@ -85,6 +111,9 @@ def to_(to):
         return f'{" ".join(to_coded.split(" ")[:-1])} ' \
                f'{account_number[0:4]} {account_number[4:6]}' \
                f'** **** {account_number[12:]}'
+
+
+"""выводит от кого перевод"""
 
 
 def from_(re):
